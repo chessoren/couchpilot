@@ -19,6 +19,7 @@ It is built first for the people the remote left behind (older adults, people wi
 
 **Who is the AI?** In the Alexa+ path, Alexa+ is the conversational AI: it understands the user and hands Couch Pilot a goal through MCP. Couch Pilot is the part that *acts*: it plans the TV steps, enforces the guardrails and drives the screen. On the TV itself, a fast on-device planner (no cloud, works offline) handles the remote's mic button.
 
+**Live demo (no install):** https://couchpilot.netlify.app (open it full screen, click "try a demo" or press **M**)  
 Demo video: _add your YouTube/Vimeo link here_
 
 ---

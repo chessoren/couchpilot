@@ -447,7 +447,7 @@ body.piloting .voicebar { left: 36px; margin-left: 0; width: 1260px; }
 .voice-brand { font-size: 22px; font-weight: 700; color: var(--ink-2); text-align: right; line-height: 1.1; }
 .voice-brand small { display: block; font-size: 15px; font-weight: 600; color: var(--ink-3); text-transform: uppercase; letter-spacing: 1.5px; }
 
-.hint { position: absolute; right: 150px; top: 136px; font-size: 19px; font-weight: 600; color: rgba(255, 255, 255, 0.85); display: flex; align-items: center; gap: 8px; z-index: 5; text-shadow: 0 1px 6px rgba(0,0,0,.15); transition: opacity .4s; }
+.hint { cursor: pointer; position: absolute; right: 150px; top: 136px; font-size: 19px; font-weight: 600; color: rgba(255, 255, 255, 0.85); display: flex; align-items: center; gap: 8px; z-index: 5; text-shadow: 0 1px 6px rgba(0,0,0,.15); transition: opacity .4s; }
 .hint .key { height: 28px; min-width: 32px; font-size: 15px; }
 body.piloting .hint, body.playing .hint { opacity: 0; }
 
@@ -477,3 +477,7 @@ body.kids .tab.active { background: #bfe6ff; color: #12324a; }
 .remote-toast .rt-label { color: var(--ink-2); text-transform: uppercase; letter-spacing: 1.5px; font-size: 17px; }
 .remote-toast .key.big { height: 54px; min-width: 64px; font-size: 26px; background: rgba(255,255,255,.92); color: #111; border-radius: 16px; }
 .remote-toast .rt-count { color: var(--warn); font-variant-numeric: tabular-nums; }
+
+.voice-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.vchip { height: 44px; padding: 0 18px; border-radius: 22px; background: rgba(95, 227, 200, 0.14); border: 1px solid rgba(95, 227, 200, 0.35); color: #fff; font-size: 19px; font-weight: 600; }
+.vchip:hover { background: rgba(95, 227, 200, 0.3); }

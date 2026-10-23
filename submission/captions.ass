@@ -10,21 +10,21 @@ Style: U,Inter,30,&H00C8E35F,&H00FFFFFF,&H00000000,&H99000000,-1,0,0,0,100,100,0
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:00:00.20,0:00:09.13,N,,0,0,0,,Watching TV shouldn't take twenty button presses. For millions of people — older adults, people with low vision or shaky hands — it's
-Dialogue: 0,0:00:09.13,0:00:11.14,N,,0,0,0,,not an annoyance. It's a wall.
-Dialogue: 0,0:00:13.65,0:00:19.05,N,,0,0,0,,Meet Couch Pilot, the self-driving remote. You say the goal. It drives the TV.
+Dialogue: 0,0:00:00.20,0:00:07.06,N,,0,0,0,,Watching TV shouldn't take twenty button presses. For millions of people — older adults, people with low vision or shaky hands — it's
+Dialogue: 0,0:00:07.06,0:00:08.61,N,,0,0,0,,not an annoyance. It's a wall.
+Dialogue: 0,0:00:13.65,0:00:18.40,N,,0,0,0,,Meet Couch Pilot, the self-driving remote. You say the goal. It drives the TV.
 Dialogue: 0,0:00:20.53,0:00:25.66,U,,0,0,0,,🎙 Mireille, 78
-Dialogue: 0,0:00:36.01,0:00:42.08,N,,0,0,0,,One sentence. Four steps. Zero clicks. And Mireille sees every step as it happens.
-Dialogue: 0,0:00:43.80,0:00:46.35,U,,0,0,0,,🎙 Léa, mum of two
-Dialogue: 0,0:00:59.07,0:01:08.64,N,,0,0,0,,Voice, remote and screen in one flow. When it's not sure, it asks one question — never more. Kids mode caps the volume and stops after 30
-Dialogue: 0,0:01:08.64,0:01:09.20,N,,0,0,0,,minutes.
-Dialogue: 0,0:01:13.26,0:01:15.73,U,,0,0,0,,🎙 Thomas
-Dialogue: 0,0:01:29.96,0:01:35.69,N,,0,0,0,,Routines turn a whole evening into two words. And yes, it remembers the reminder.
-Dialogue: 0,0:01:40.12,0:01:42.59,U,,0,0,0,,🎙 Thomas
-Dialogue: 0,0:01:53.54,0:01:54.83,U,,0,0,0,,🎙 Thomas
-Dialogue: 0,0:01:59.15,0:02:03.21,U,,0,0,0,,🎙 Thomas
-Dialogue: 0,0:02:06.34,0:02:07.78,U,,0,0,0,,🎙 Thomas
-Dialogue: 0,0:02:10.34,0:02:17.23,N,,0,0,0,,Anything that costs money needs a yes. One word — or the Back button — stops it. You're always in control.
-Dialogue: 0,0:02:18.71,0:02:30.95,N,,0,0,0,,Under the hood: Alexa+ understands, Couch Pilot acts. Couch Pilot is an MCP server (spec 2025-11-25, Streamable HTTP). Any Alexa+ agent can
-Dialogue: 0,0:02:30.95,0:02:35.08,N,,0,0,0,,hand it a goal — and the Fire TV drives itself.
-Dialogue: 0,0:02:36.03,0:02:39.44,N,,0,0,0,,For everyone the remote left behind. Couch Pilot.
+Dialogue: 0,0:00:36.01,0:00:40.95,N,,0,0,0,,One sentence. Four steps. Zero clicks. And Mireille sees every step as it happens.
+Dialogue: 0,0:00:43.31,0:00:45.86,U,,0,0,0,,🎙 Léa, mum of two
+Dialogue: 0,0:00:58.58,0:01:05.96,N,,0,0,0,,Voice, remote and screen in one flow. When it's not sure, it asks one question — never more. Kids mode caps the volume and stops after 30
+Dialogue: 0,0:01:05.96,0:01:06.39,N,,0,0,0,,minutes.
+Dialogue: 0,0:01:11.09,0:01:12.55,U,,0,0,0,,🎙 Thomas
+Dialogue: 0,0:01:26.79,0:01:30.94,N,,0,0,0,,Routines turn a whole evening into two words. And yes, it remembers the reminder.
+Dialogue: 0,0:01:35.20,0:01:37.03,U,,0,0,0,,🎙 Thomas
+Dialogue: 0,0:01:47.74,0:01:48.92,U,,0,0,0,,🎙 Thomas
+Dialogue: 0,0:01:53.24,0:01:56.69,U,,0,0,0,,🎙 Thomas
+Dialogue: 0,0:01:59.84,0:02:01.07,U,,0,0,0,,🎙 Thomas
+Dialogue: 0,0:02:03.63,0:02:09.32,N,,0,0,0,,Anything that costs money needs a yes. One word — or the Back button — stops it. You're always in control.
+Dialogue: 0,0:02:11.03,0:02:19.38,N,,0,0,0,,Under the hood: Alexa+ understands, Couch Pilot acts. Couch Pilot is an MCP server on the latest MCP spec (2025-11-25), over Streamable
+Dialogue: 0,0:02:19.38,0:02:23.96,N,,0,0,0,,HTTP. Any Alexa+ agent can hand it a goal — and the Fire TV drives itself.
+Dialogue: 0,0:02:27.15,0:02:30.23,N,,0,0,0,,For everyone the remote left behind. Couch Pilot.

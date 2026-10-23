@@ -65,6 +65,7 @@ Couch Pilot turns the sentence into a **plan**, shows the plan on screen, and **
 javascript, node.js, html5, css3, model-context-protocol, mcp-typescript-sdk, streamable-http, alexa-plus, fire-tv, fire-os, android-tv, kotlin, android-webview, gradle, zod, server-sent-events, web-speech-api, android-speechrecognizer, android-texttospeech, playwright, chromium, ffmpeg, github, accessibility, ai-agents
 
 ## "Try it out" links
+- Live demo (no install): https://couchpilot.netlify.app
 - Code: https://github.com/chessoren/couchpilot
 - Fire TV APK (sideload): https://github.com/chessoren/couchpilot/raw/claude/ecstatic-shannon-rb6fhg/dist/couchpilot-fire-tv.apk
 - Run it in 2 minutes: https://github.com/chessoren/couchpilot#quick-start-2-minutes

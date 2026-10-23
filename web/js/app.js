@@ -88,6 +88,7 @@ const voice = {
       this.open = false;
       $('#voicebar').hidden = true;
       $('#voiceInput').hidden = true;
+      $('#voiceChips').hidden = true;
       $('#voiceInput').value = '';
     }, delay);
   },
@@ -124,11 +125,27 @@ const voice = {
   },
   typed() {
     const input = $('#voiceInput');
-    $('#voiceLabel').textContent = 'Type what you would say, then press Enter';
+    $('#voiceLabel').textContent = 'Type what you would say, then press Enter (or pick a demo)';
     input.hidden = false;
+    $('#voiceChips').hidden = false;
     setTimeout(() => input.focus(), 50);
   },
 };
+// Demo phrases, so anyone can try Couch Pilot without a microphone.
+const DEMO_PHRASES = [
+  'Resume my detective show where I left off, and turn it up.',
+  'Put on something for the kids.',
+  'Movie night.',
+  'Rent Dune Song.',
+  'Find me a documentary about space, under an hour.',
+];
+$('#voiceChips').innerHTML = DEMO_PHRASES.map((t) => `<button class="vchip" data-say="${t}">${t}</button>`).join('');
+// Mouse / touch users (e.g. judges on a laptop): click the hint to type or pick a demo.
+$('#hint').addEventListener('click', () => { voice.show('Couch Pilot'); voice.typed(); });
+$('#voiceChips').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-say]');
+  if (b) voice.submit(b.dataset.say);
+});
 $('#voiceInput').addEventListener('keydown', (e) => {
   e.stopPropagation();
   if (e.key === 'Enter' && e.target.value.trim()) voice.submit(e.target.value.trim());
