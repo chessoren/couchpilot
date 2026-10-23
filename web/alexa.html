@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alexa+ Simulator · Couch Pilot</title>
+  <link rel="icon" href="img/icon.svg" />
+  <style>
+    @font-face { font-family: 'Inter'; src: url('fonts/Inter.woff2') format('woff2'); font-weight: 100 900; }
+    :root { --accent: #5fe3c8; --bg: #0f1112; --card: #1a1d1f; --ink: #f2f4f5; --ink2: #9aa3a8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(900px 600px at 20% 110%, rgba(40, 140, 160, 0.35), transparent 70%), var(--bg); color: var(--ink); font-family: 'Inter', system-ui, sans-serif; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; padding: 32px; }
+    @media (max-width: 900px) { body { grid-template-columns: 1fr; padding: 16px; } }
+    .device { background: var(--card); border-radius: 36px; padding: 28px; display: flex; flex-direction: column; min-height: calc(100vh - 64px); border: 1px solid rgba(255,255,255,.08); }
+    h1 { margin: 0; font-size: 26px; display: flex; align-items: center; gap: 12px; }
+    h1 img { width: 40px; height: 40px; border-radius: 12px; }
+    .sub { color: var(--ink2); margin: 6px 0 20px; font-size: 15px; }
+    .chat { flex: 1; overflow: auto; display: flex; flex-direction: column; gap: 12px; padding: 6px 0; }
+    .msg { max-width: 85%; padding: 14px 18px; border-radius: 22px; font-size: 19px; line-height: 1.35; }
+    .me { align-self: flex-end; background: #2b3134; }
+    .alexa { align-self: flex-start; background: linear-gradient(135deg, rgba(95,227,200,.18), rgba(32,163,184,.18)); border: 1px solid rgba(95,227,200,.3); }
+    .alexa small { display: block; color: var(--accent); font-weight: 700; font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; margin-bottom: 4px; }
+    form { display: flex; gap: 10px; margin-top: 14px; }
+    input { flex: 1; min-width: 0; font: inherit; font-size: 18px; padding: 16px 20px; border-radius: 28px; border: 1px solid rgba(255,255,255,.14); background: #121516; color: var(--ink); outline: none; }
+    button { font: inherit; font-weight: 700; border: 0; border-radius: 28px; padding: 0 22px; background: var(--accent); color: #062620; cursor: pointer; }
+    button.mic { width: 56px; padding: 0; background: radial-gradient(circle at 35% 30%, #8ff5df, #20a3b8 60%, #145e86); color: #fff; font-size: 22px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .chips button { background: rgba(255,255,255,.08); color: var(--ink); font-weight: 600; font-size: 14px; padding: 9px 14px; }
+    .log { background: #0b0c0d; border-radius: 28px; padding: 22px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 13px; overflow: auto; min-height: calc(100vh - 64px); border: 1px solid rgba(255,255,255,.06); }
+    .log h2 { font-family: 'Inter', sans-serif; font-size: 18px; margin: 0 0 4px; }
+    .log .sub { font-family: 'Inter', sans-serif; }
+    .entry { border-left: 3px solid var(--accent); padding: 8px 12px; margin: 10px 0; white-space: pre-wrap; word-break: break-word; color: #cfe; }
+    .entry.res { border-color: #ffc56b; color: #fed; }
+  </style>
+</head>
+<body>
+  <section class="device">
+    <h1><img src="img/icon.svg" alt="" />Alexa+ <span style="color:var(--ink2);font-weight:600">· simulated</span></h1>
+    <p class="sub">Talk to Alexa+. It hands the goal to the Couch Pilot MCP server, and your Fire TV drives itself.</p>
+    <div class="chat" id="chat"></div>
+    <div class="chips" id="chips"></div>
+    <form id="f"><button type="button" class="mic" id="mic" title="Speak">🎙</button><input id="q" placeholder="Ask Alexa+…" autocomplete="off" /><button>Send</button></form>
+  </section>
+  <section class="log" id="log">
+    <h2>MCP traffic</h2>
+    <p class="sub">Streamable HTTP · protocol <span id="proto">2025-11-25</span> · endpoint <code>/mcp</code></p>
+  </section>
+  <script>
+    const chat = document.getElementById('chat');
+    const log = document.getElementById('log');
+    const add = (cls, html) => { const d = document.createElement('div'); d.className = `msg ${cls}`; d.innerHTML = html; chat.appendChild(d); chat.scrollTop = 1e9; };
+    const entry = (cls, obj) => { const d = document.createElement('div'); d.className = `entry ${cls}`; d.textContent = typeof obj === 'string' ? obj : JSON.stringify(obj, null, 2); log.appendChild(d); log.scrollTop = 1e9; };
+    async function send(text) {
+      if (!text) return;
+      add('me', text.replace(/</g, '&lt;'));
+      entry('', `→ tools/call  (Alexa+ asks Couch Pilot)`);
+      const r = await fetch('api/alexa', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text }) }).then((x) => x.json());
+      entry('', r.mcp?.request || r);
+      entry('res', { '← result': r.mcp?.result, ms: r.mcp?.ms });
+      add('alexa', `<small>Alexa+</small>${(r.say || r.error || '').replace(/</g, '&lt;')}`);
+      try { const u = new SpeechSynthesisUtterance(r.say); u.lang = 'en-US'; speechSynthesis.speak(u); } catch (e) {}
+    }
+    document.getElementById('f').addEventListener('submit', (e) => { e.preventDefault(); const q = document.getElementById('q'); send(q.value.trim()); q.value = ''; });
+    ['Resume my detective show where I left off, and turn it up', 'Put on something for the kids', 'The first one', 'Movie night', 'Rent Dune Song', 'No', 'What is playing?', 'Stop'].forEach((p) => {
+      const b = document.createElement('button'); b.textContent = p; b.onclick = () => send(p); document.getElementById('chips').appendChild(b);
+    });
+    document.getElementById('mic').onclick = () => {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) { document.getElementById('q').focus(); return; }
+      const r = new SR(); r.lang = 'en-US'; r.onresult = (e) => send(e.results[0][0].transcript); r.start();
+    };
+    fetch('api/health').then((r) => r.json()).then((h) => { document.getElementById('proto').textContent = h.mcpProtocol; entry('', `server: tvConnected=${h.tvConnected} bedrock=${h.bedrock}${h.model ? ' (' + h.model + ')' : ''}`); });
+    add('alexa', '<small>Alexa+</small>Hi! What would you like to watch tonight?');
+  </script>
+</body>
+</html>

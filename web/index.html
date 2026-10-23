@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Couch Pilot</title>
+  <link rel="icon" href="img/icon.svg" />
+  <link rel="stylesheet" href="css/tv.css" />
+</head>
+<body>
+  <div id="stage" aria-live="off">
+    <div class="ambient" id="ambient"><div class="ambient-img" id="ambientImg"></div></div>
+
+    <!-- The TV: everything the agent drives lives in here -->
+    <main id="tv" class="tv">
+      <header class="topbar">
+        <button class="pill search-pill" id="searchPill" data-focus data-nav="search">
+          <svg viewBox="0 0 24 24" class="ico"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+          <span>Search</span>
+        </button>
+        <nav class="pill nav-pill" id="navPill">
+          <button class="tab" data-focus data-nav="home">Home</button>
+          <button class="tab" data-focus data-nav="mylist">My List</button>
+          <button class="tab" data-focus data-nav="discover">Discover</button>
+          <button class="tab" data-focus data-nav="shop">Shop</button>
+        </nav>
+        <div class="top-right">
+          <div class="chips" id="chips"></div>
+          <div class="clock" id="clock">9:12 PM</div>
+        </div>
+      </header>
+
+      <section class="window" id="window">
+        <div class="screen" id="screen"></div>
+      </section>
+
+      <!-- Full-screen player -->
+      <section class="player" id="player" hidden>
+        <video id="video" playsinline muted loop></video>
+        <div class="player-shade"></div>
+        <div class="captions" id="captions" hidden><span id="captionText"></span></div>
+        <div class="player-ui" id="playerUi">
+          <div class="player-title" id="playerTitle"></div>
+          <div class="player-sub" id="playerSub"></div>
+          <div class="progress"><div class="progress-fill" id="progressFill"></div><div class="progress-knob" id="progressKnob"></div></div>
+          <div class="progress-times"><span id="tNow">0:00</span><span id="tEnd">0:00</span></div>
+          <div class="player-buttons">
+            <button class="pbtn" data-focus data-player="back10"><svg viewBox="0 0 24 24" class="ico"><path d="M11 6 5 12l6 6"/><path d="M19 6l-6 6 6 6"/></svg></button>
+            <button class="pbtn primary" data-focus data-player="toggle"><svg viewBox="0 0 24 24" class="ico fill"><path d="M8 5v14l11-7z"/></svg></button>
+            <button class="pbtn" data-focus data-player="fwd10"><svg viewBox="0 0 24 24" class="ico"><path d="M13 6l6 6-6 6"/><path d="M5 6l6 6-6 6"/></svg></button>
+            <button class="pbtn text" data-focus data-player="subs" id="subsBtn"><svg viewBox="0 0 24 24" class="ico"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 13h4M13 13h4M7 16h10"/></svg><span>Subtitles</span></button>
+          </div>
+          <div class="subs-menu" id="subsMenu" hidden>
+            <div class="subs-title">Subtitles</div>
+            <button class="subs-opt" data-focus data-lang="">Off</button>
+            <button class="subs-opt" data-focus data-lang="English">English</button>
+            <button class="subs-opt" data-focus data-lang="French">French</button>
+            <button class="subs-opt" data-focus data-lang="Spanish">Spanish</button>
+          </div>
+        </div>
+        <div class="resume-chip" id="resumeChip" hidden></div>
+      </section>
+
+      <div class="volume-hud" id="volumeHud" hidden>
+        <svg viewBox="0 0 24 24" class="ico"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+        <div class="vol-track"><div class="vol-fill" id="volFill"></div></div>
+        <div class="vol-num" id="volNum">20</div>
+      </div>
+
+      <div class="standby" id="standby" hidden><div>Good night.</div><small>Press OK to wake the TV.</small></div>
+      <div class="focus-ring" id="focusRing"></div>
+    </main>
+
+    <!-- Couch Pilot: the agent panel -->
+    <aside class="pilot" id="pilot" aria-live="polite">
+      <div class="pilot-head">
+        <img src="img/icon.svg" class="pilot-logo" alt="" />
+        <div class="pilot-name">Couch Pilot</div>
+        <div class="pilot-status" id="pilotStatus">Ready</div>
+      </div>
+      <div class="pilot-heard" id="pilotHeard"></div>
+      <div class="pilot-say" id="pilotSay"></div>
+      <ol class="pilot-steps" id="pilotSteps"></ol>
+      <div class="pilot-choices" id="pilotChoices"></div>
+      <div class="pilot-foot" id="pilotFoot">
+        <span class="key">Back</span> or say <b>“Stop”</b> to take over
+      </div>
+      <div class="pilot-planner" id="pilotPlanner"></div>
+    </aside>
+
+    <div class="bubble" id="bubble" hidden>
+      <img src="img/icon.svg" alt="" />
+      <div><div class="bubble-main" id="bubbleMain"></div><div class="bubble-sub" id="bubbleSub"></div></div>
+    </div>
+
+    <!-- Alexa+ (simulated) voice bar -->
+    <div class="voicebar" id="voicebar" hidden>
+      <div class="orb" id="orb"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="voice-text">
+        <div class="voice-label" id="voiceLabel">I'm listening…</div>
+        <div class="voice-transcript" id="voiceTranscript"></div>
+        <input id="voiceInput" class="voice-input" placeholder="Type what you would say…" autocomplete="off" hidden />
+      </div>
+      <div class="voice-brand">Alexa+ <small>simulated</small></div>
+    </div>
+
+    <div class="hint" id="hint"><span class="key">☰</span> or <span class="key">M</span> talk to Couch Pilot</div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "couchpilot",
+  "version": "1.0.0",
+  "description": "Couch Pilot - the self-driving remote. Say the goal, it drives the TV.",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test tests/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.1156.0",
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "zod": "^4.6.7"
+  }
+}
