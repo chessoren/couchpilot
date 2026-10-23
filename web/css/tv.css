@@ -465,3 +465,15 @@ body.kids .tab.active { background: #bfe6ff; color: #12324a; }
 @keyframes blink { 50% { opacity: 0; } }
 @keyframes press { 40% { transform: var(--ring-t) scale(0.94); } }
 @keyframes wave { 50% { height: 40px; } }
+
+/* On-screen remote indicator (?showkeys) */
+.remote-toast {
+  position: absolute; left: 56px; bottom: 56px; z-index: 95;
+  display: flex; align-items: center; gap: 14px; padding: 14px 22px 14px 26px; border-radius: 34px;
+  background: rgba(18, 19, 20, 0.86); border: 1.5px solid rgba(255, 255, 255, 0.16); backdrop-filter: blur(20px);
+  font-size: 22px; font-weight: 700; opacity: 0; transform: translateY(16px); transition: opacity .3s, transform .3s var(--ease);
+}
+.remote-toast.hit { opacity: 1; transform: none; }
+.remote-toast .rt-label { color: var(--ink-2); text-transform: uppercase; letter-spacing: 1.5px; font-size: 17px; }
+.remote-toast .key.big { height: 54px; min-width: 64px; font-size: 26px; background: rgba(255,255,255,.92); color: #111; border-radius: 16px; }
+.remote-toast .rt-count { color: var(--warn); font-variant-numeric: tabular-nums; }

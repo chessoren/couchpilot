@@ -164,8 +164,27 @@ function back() {
   }
   if (tv.state.screen !== 'home') tv.navigate('home');
 }
+// Optional on-screen remote indicator (?showkeys), used for demos and recordings.
+const KEY_GLYPH = { ArrowUp: '▲', ArrowDown: '▼', ArrowLeft: '◀', ArrowRight: '▶', Enter: 'OK', Escape: 'Back', Backspace: 'Back', m: '☰ Mic', M: '☰ Mic' };
+let pressCount = 0;
+function showKey(k) {
+  if (!params.has('showkeys') || !KEY_GLYPH[k]) return;
+  pressCount += 1;
+  let el = document.getElementById('remoteToast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'remoteToast';
+    el.className = 'remote-toast';
+    document.getElementById('stage').appendChild(el);
+  }
+  el.innerHTML = `<span class="rt-label">Remote</span><span class="key big">${KEY_GLYPH[k]}</span>${params.has('count') ? `<span class="rt-count">${pressCount} presses</span>` : ''}`;
+  el.classList.remove('hit'); void el.offsetWidth; el.classList.add('hit');
+  clearTimeout(showKey.t);
+  showKey.t = setTimeout(() => el.classList.remove('hit'), 1600);
+}
 document.addEventListener('keydown', (e) => {
   if (e.target === $('#voiceInput')) return;
+  showKey(e.key);
   const k = e.key;
   if (!$('#standby').hidden) { if (k === 'Enter') tv.wake(); return; }
   if (k === 'm' || k === 'M' || k === 'ContextMenu' || k === 'F2' || k === '/') { e.preventDefault(); voice.start(); return; }

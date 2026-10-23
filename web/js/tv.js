@@ -60,6 +60,14 @@ export class TV {
     this.tickClock();
     setInterval(() => this.heroAutoAdvance(), 9000);
     setInterval(() => this.updateProgress(), 500);
+    // never leave the focus ring on an element that has disappeared
+    setInterval(() => {
+      if (this.focused && !this.focused.isConnected) {
+        this.ring.classList.remove('on');
+        const fallback = $('#player').hidden ? $('[data-focus]', this.screenEl) : $('[data-player="toggle"]');
+        if (fallback && !document.body.classList.contains('piloting')) this.setFocus(fallback);
+      }
+    }, 250);
     this.renderChips();
   }
 

@@ -73,7 +73,8 @@ export class Pilot {
     $('.state', li).textContent = word ?? { active: 'Now', done: 'Done', skipped: 'Skipped', wait: 'Your call', failed: 'Retry' }[state] ?? '';
   }
   plannerBadge(plan) {
-    $('#pilotPlanner').textContent = plan?.planner ? `Planned ${plan.planner === 'bedrock' ? `in the cloud · Amazon Bedrock (${plan.model || 'model'})` : 'on this TV'} · ${plan.ms ?? 0} ms` : '';
+    const where = { bedrock: `Planned in the cloud · Amazon Bedrock (${plan?.model || 'model'})`, mcp: 'Requested through MCP (Alexa+)', 'on-device': 'Planned on this TV · works offline' }[plan?.planner] || '';
+    $('#pilotPlanner').textContent = where && plan.planner === 'bedrock' ? `${where} · ${plan.ms ?? 0} ms` : where;
   }
   bubble(main, sub = '', ms = 4200) {
     const b = $('#bubble');
@@ -192,7 +193,7 @@ export class Pilot {
     $('#pilotFoot').innerHTML = 'Say <b>“the first one”</b>, or use <span class="key">◀ ▶</span><span class="key">OK</span>';
     this.emit('clarify', { question: plan.question, options: plan.options });
     return new Promise((resolve, reject) => {
-      const done = (v) => { this.waiting = null; this.resetFoot(); resolve(v); };
+      const done = (v) => { this.waiting = null; this.tv.ring.classList.remove('on'); this.resetFoot(); resolve(v); };
       this.waiting = { kind: 'clarify', options: plan.options, resolve: done, reject };
       $$('[data-choice]', box).forEach((b) => b.addEventListener('click', () => done(b.dataset.choice)));
       setTimeout(() => this.tv.setFocus($('[data-choice]', box)), 450);
@@ -209,7 +210,7 @@ export class Pilot {
     $('#pilotFoot').innerHTML = 'Say <b>“yes”</b> or <b>“no”</b>, or press <span class="key">OK</span>';
     this.emit('confirm', { question });
     return new Promise((resolve, reject) => {
-      const done = (v) => { this.waiting = null; box.innerHTML = ''; this.resetFoot(); resolve(v); };
+      const done = (v) => { this.waiting = null; box.innerHTML = ''; this.tv.ring.classList.remove('on'); this.resetFoot(); resolve(v); };
       this.waiting = { kind: 'confirm', resolve: done, reject };
       $$('[data-yes]', box).forEach((b) => b.addEventListener('click', () => done(b.dataset.yes === '1')));
       // Default focus is "No": an accidental OK never spends money.

@@ -6,7 +6,8 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
-    "test": "node --test tests/"
+    "test": "node --test tests/planner.test.js",
+    "test:e2e": "node tests/e2e-mcp.mjs"
   },
   "license": "MIT",
   "dependencies": {
